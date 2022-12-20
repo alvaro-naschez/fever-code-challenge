@@ -35,3 +35,5 @@ The idea of the solution is really simple. We have a Postgres cluster with two r
 Obviously the app is not production ready. But I honestly believe I've done a good job given the time constraints.
 
 In case you have any doubts about my solution, I would like to tell you that I would be more than happy to explain you my solution in more depth and why I made the decisions I made. So if you feel it could be useful, don't hesitate to organize a meeting in order to do so.
+
+And finally I will explain why I don't have tests. I'm a bit ashamed that I don't have here a good test coverage. But writting good tests takes time. And I've currently spent some time in this challange, I think it is enough at least for now. If some of these days I have time and I'm in the right mood I will write some.
