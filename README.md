@@ -29,7 +29,7 @@ The idea of the solution is really simple. We have a Postgres cluster with two r
 > While I was implementing the solution I've found an event which comes with date of September 31st, which is obviously wrong because there are only 30 days in September. What I'm doing in that scenario is just to log the error and ignore the event.
 
 > **Note**
-> The `id` of the events in the feed is an `integer`, while in the OpenAPI spec the `id` of the events is of type `UUID`. I could have created an artificial UUID in my local DB, but I've decided not to do so and to use the ingeger `id` in the API output too. So that's the only little thing I've changed in the API spec. As I said I could have respected the instructions 100% here (it is not hard to do it) but I thought it make no sense and my solution could be a lot more clean like this.
+> The `id` of the events in the feed is an `integer`, while in the OpenAPI spec the `id` of the events is of type `UUID`. I could have created an artificial UUID in my local DB, but I've decided not to do so and to use the ingeger `id` in the API output too. So that's the only little thing I've changed in the API spec. As I said I could have respected the instructions 100% here (it is not hard to do it) but I thought it makes no sense and my solution could be a lot cleaner this way.
 
 ## Closing thoughts
 Obviously the app is not production ready. But I honestly believe I've done a good job given the time constraints.
