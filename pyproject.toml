@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "fever"
+version = "0.1.0"
+description = ""
+authors = ["Alvaro Sanchez <alvarosanchezpalomino@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.88.0"
+uvicorn = {extras = ["standard"], version = "^0.20.0"}
+pydantic = "^1.10.2"
+sqlalchemy = "^1.4.45"
+alembic = "^1.9.0"
+psycopg2-binary = "^2.9.5"
+httpx = "^0.23.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+isort = "^5.11.3"
+flake8 = "^6.0.0"
+jupyter = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

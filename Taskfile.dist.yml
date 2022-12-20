@@ -1,0 +1,44 @@
+version: "3"
+tasks:
+  up:
+    desc: docker compose up
+    cmds:
+      - docker compose up --scale api=0
+  api-run:
+    desc: start the api server
+    cmds:
+      - uvicorn fever.api.main:app --reload
+  reader-run:
+    cmds:
+      - python -m fever.event_reader.main
+  format:
+    desc: run formatters
+    cmds:
+      - poetry run black {{.FOLDERS}}
+      - poetry run isort {{.FOLDERS}}
+    vars:
+      FOLDERS: fever alembic tests
+  lint:
+    desc: run linters
+    cmds:
+      - poetry run black {{.FOLDERS}} --check
+      - poetry run isort --check-only {{.FOLDERS}}
+      - poetry run flake8 {{.FOLDERS}}
+    vars:
+      FOLDERS: fever alembic tests
+  create-migration:
+    desc: "example: task create-migration -- create events table"
+    cmds:
+      - alembic revision --autogenerate -m "{{.CLI_ARGS}}"
+  migrate:
+    desc: "apply migrations to DB"
+    cmds:
+      - alembic upgrade head
+  downgrade-one:
+    desc: "downgrade one revision"
+    cmds:
+      - alembic downgrade -1
+  downgrade:
+    desc: "downgrade using the hash of the revision"
+    cmds:
+      - alembic downgrade -- {{.CLI_ARGS}}
