@@ -9,6 +9,7 @@ tasks:
     cmds:
       - poetry run uvicorn fever.api.main:app --reload
   reader-run:
+    desc: run the event read loop
     cmds:
       - poetry run python fever/event_reader/main.py
   format:
@@ -42,3 +43,9 @@ tasks:
     desc: "downgrade using the hash of the revision"
     cmds:
       - alembic downgrade -- {{.CLI_ARGS}}
+  cleanup-docker:
+    desc: fully reset docker
+    cmds:
+      - docker system prune -f
+      - docker volume prune -f
+      - docker network prune -f
