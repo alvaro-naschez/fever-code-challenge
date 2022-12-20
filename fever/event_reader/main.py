@@ -5,6 +5,7 @@ from time import sleep
 import httpx
 from pydantic import ValidationError
 
+from fever.config import settings
 from fever.db.session import MasterSession
 from fever.event_reader.parser import parse_event
 from fever.models.event import Event
@@ -15,7 +16,7 @@ def main():
     logger = logging.getLogger(__name__)
     with MasterSession() as session:
         while True:
-            r = httpx.get("https://provider.code-challenge.feverup.com/api/events")
+            r = httpx.get(settings.EVENTS_API_URL)
 
             if r.status_code != 200:
                 sleep(1)
