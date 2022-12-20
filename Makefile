@@ -1,4 +1,4 @@
 run:
-	docker compose up
+	docker compose up --remove-orphans --build
 down:
 	docker compose down

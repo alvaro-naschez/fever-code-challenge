@@ -1,16 +1,18 @@
+import logging
 import xml.etree.ElementTree as ET
-from datetime import datetime
-from logging import getLogger
 from time import sleep
 
 import httpx
+from pydantic import ValidationError
 
 from fever.db.session import MasterSession
+from fever.event_reader.parser import parse_event
 from fever.models.event import Event
+from fever.schemas import EventIn
 
 
 def main():
-    logger = getLogger(__name__)
+    logger = logging.getLogger(__name__)
     with MasterSession() as session:
         while True:
             r = httpx.get("https://provider.code-challenge.feverup.com/api/events")
@@ -25,33 +27,16 @@ def main():
             i = 0
             for base_event in tree.iter("base_event"):
                 i += 1
-                event_id = int(base_event.attrib["base_event_id"])
-                title = base_event.get("title")
-                event = base_event[0]
-                start_date = event.get("event_start_date")
-                end_date = event.get("event_end_date")
-                prices = [float(zone.get("price")) for zone in event.iter("zone")]
-                max_price = int(max(prices) * 100)
-                min_price = int(min(prices) * 100)
-
-                event = {
-                    "id": event_id,
-                    "title": title,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                    "max_price": max_price,
-                    "min_price": min_price,
-                }
-
+                event = parse_event(base_event)
                 try:
-                    datetime.strptime(start_date, "%Y-%m-%dT%H:%M:%S")
-                    datetime.strptime(end_date, "%Y-%m-%dT%H:%M:%S")
-                except ValueError:
-                    logger.error(f"Error in datetime format, skipping event {event}")
+                    event = EventIn(**event)
+                except ValidationError as error:
+                    logger.error(f"Validation error, skipping event {event}")
+                    logger.error(error.errors())
                     continue
 
-                logger.debug(event)
-                session.merge(Event(**event))
+                logger.error(event)
+                session.merge(Event(**event.dict()))
                 if i == BATCH_SIZE:
                     i = 0
                     session.commit()
