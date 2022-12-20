@@ -10,6 +10,7 @@ services:
       - ./.env
     depends_on:
       - postgresql-slave
+    restart: on-failure
     command:
       - poetry
       - run
@@ -28,7 +29,7 @@ services:
       - ./.env
     depends_on:
       - postgresql-master
-
+    restart: on-failure
     command:
       - poetry
       - run
@@ -42,6 +43,7 @@ services:
     command: poetry run alembic upgrade head
     depends_on:
       - postgresql-master
+    restart: on-failure
   postgresql-master:
     image: docker.io/bitnami/postgresql:14
     ports:
@@ -56,12 +58,14 @@ services:
       - POSTGRESQL_PASSWORD=my_password
       - POSTGRESQL_DATABASE=my_database
       - ALLOW_EMPTY_PASSWORD=yes
+    restart: on-failure
   postgresql-slave:
     image: docker.io/bitnami/postgresql:14
     ports:
       - "5431:5432"
     depends_on:
       - postgresql-master
+    restart: on-failure
     environment:
       - POSTGRESQL_REPLICATION_MODE=slave
       - POSTGRESQL_REPLICATION_USER=repl_user
