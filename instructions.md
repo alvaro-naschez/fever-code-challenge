@@ -38,13 +38,13 @@ Where they will give us their list of events on XML. Every time we fetch the eve
 the endpoint will give us the current events available on their side. Here we provide some examples of three different
 calls to that endpoint on three different consecutive moments.
 
-Response 1
+[Response 1](tests/resources/response1.xml)
 https://gist.githubusercontent.com/sergio-nespral/82879974d30ddbdc47989c34c8b2b5ed/raw/44785ca73a62694583eb3efa0757db3c1e5292b1/response_1.xml
 
-Response 2
+[Response 2](tests/resources/response2.xml)
 https://gist.githubusercontent.com/sergio-nespral/82879974d30ddbdc47989c34c8b2b5ed/raw/44785ca73a62694583eb3efa0757db3c1e5292b1/response_2.xml
 
-Response 3
+[Response 3](tests/resources/response3.xml)
 https://gist.githubusercontent.com/sergio-nespral/82879974d30ddbdc47989c34c8b2b5ed/raw/44785ca73a62694583eb3efa0757db3c1e5292b1/response_3.xml
 
 As you can see, the events that aren't available anymore aren't shown on their API anymore.
