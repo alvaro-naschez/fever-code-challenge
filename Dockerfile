@@ -19,9 +19,7 @@ RUN poetry install --no-dev
 FROM base as api
 
 COPY fever fever
-COPY alembic  alembic
-COPY alembic.ini .
-RUN alembic upgrade head
+
 
 ################################################################################
 
@@ -29,3 +27,12 @@ FROM base as reader
 
 COPY fever fever
 
+
+################################################################################
+
+FROM base as migration
+
+COPY fever fever
+
+COPY alembic  alembic
+COPY alembic.ini .

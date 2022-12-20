@@ -28,11 +28,20 @@ services:
       - ./.env
     depends_on:
       - postgresql-master
+
     command:
       - poetry
       - run
       - python
       - fever/event_reader/main.py
+  migration:
+    build: .
+    image: migration
+    env_file:
+      - ./.env
+    command: poetry run alembic upgrade head
+    depends_on:
+      - postgresql-master
   postgresql-master:
     image: docker.io/bitnami/postgresql:14
     ports:
