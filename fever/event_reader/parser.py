@@ -9,8 +9,8 @@ def parse_event(xml_event: Element) -> dict[str, Any]:
     start_date = event.get("event_start_date")
     end_date = event.get("event_end_date")
     prices = [float(zone.get("price")) for zone in event.iter("zone")]
-    max_price = int(max(prices) * 100)
-    min_price = int(min(prices) * 100)
+    max_price = max(prices) * 100
+    min_price = min(prices) * 100
 
     event = {
         "id": event_id,

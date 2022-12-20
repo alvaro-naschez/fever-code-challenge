@@ -8,5 +8,5 @@ class EventIn(BaseModel):
     title: str
     start_date: datetime
     end_date: datetime
-    max_price: float
-    min_price: float
+    max_price: int
+    min_price: int
