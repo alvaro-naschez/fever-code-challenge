@@ -3,14 +3,14 @@ tasks:
   up:
     desc: docker compose up
     cmds:
-      - docker compose up --scale api=0
+      - docker compose up --scale api=0 --scale event-reader=0
   api-run:
     desc: start the api server
     cmds:
-      - uvicorn fever.api.main:app --reload
+      - poetry run uvicorn fever.api.main:app --reload
   reader-run:
     cmds:
-      - python -m fever.event_reader.main
+      - poetry run python fever/event_reader/main.py
   format:
     desc: run formatters
     cmds:

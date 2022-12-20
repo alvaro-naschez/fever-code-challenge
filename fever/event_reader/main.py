@@ -10,6 +10,7 @@ from fever.models.event import Event
 
 
 def main():
+    logger = getLogger(__name__)
     with MasterSession() as session:
         while True:
             r = httpx.get("https://provider.code-challenge.feverup.com/api/events")
@@ -46,11 +47,10 @@ def main():
                     datetime.strptime(start_date, "%Y-%m-%dT%H:%M:%S")
                     datetime.strptime(end_date, "%Y-%m-%dT%H:%M:%S")
                 except ValueError:
-                    logger = getLogger(__name__)
                     logger.error(f"Error in datetime format, skipping event {event}")
                     continue
 
-                print(event)
+                logger.debug(event)
                 session.merge(Event(**event))
                 if i == BATCH_SIZE:
                     i = 0

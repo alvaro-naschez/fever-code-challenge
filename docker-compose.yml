@@ -1,45 +1,38 @@
 version: "3.9"
 services:
   api:
-    image: python:3.10.9
     build:
       context: .
+      target: api
     ports:
       - "8000:8000"
-    volumes:
-      - ./:/app
     env_file:
       - ./.env
     depends_on:
       - postgresql-slave
     command:
+      - poetry
+      - run
       - uvicorn
       - fever.api.main:app
-      - --workers=1
+      - --workers=4
       - --host=0
       - --port=8000
       - --log-level=debug
       - --reload
   event-reader:
-    image: python:3.10.9
     build:
       context: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./:/app
+      target: reader
     env_file:
       - ./.env
     depends_on:
-      - postgresql-slave
+      - postgresql-master
     command:
-      - uvicorn
-      - fever.api.main:app
-      - --workers=1
-      - --host=0
-      - --port=8000
-      - --log-level=debug
-      - --reload
+      - poetry
+      - run
+      - python
+      - fever/event_reader/main.py
   postgresql-master:
     image: docker.io/bitnami/postgresql:14
     ports:
