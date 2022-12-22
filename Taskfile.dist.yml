@@ -17,6 +17,10 @@ tasks:
     desc: run the event read loop
     cmds:
       - poetry run python fever/event_reader/main.py
+  test:
+    desc: run tests
+    cmds:
+      - poetry run pytest
   format:
     desc: run formatters
     cmds:
