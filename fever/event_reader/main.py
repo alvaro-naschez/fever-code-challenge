@@ -44,7 +44,7 @@ def read_events(
             logger.error(error.errors())
             return
 
-        logger.error(event)
+        logger.debug(event)
         session.merge(Event(**event.dict()))
         if i == batch_size:
             i = 0
