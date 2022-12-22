@@ -21,6 +21,8 @@ tasks:
     desc: run tests
     cmds:
       - poetry run pytest
+    dotenv:
+      - ".env.test"
   format:
     desc: run formatters
     cmds:
