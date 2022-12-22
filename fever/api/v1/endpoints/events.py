@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from fastapi import APIRouter
+from sqlalchemy.orm import Session
 
 from fever.db.session import SlaveSession
 from fever.models import Event
@@ -11,12 +12,20 @@ router = APIRouter()
 
 @router.get("/", response_model=EventList)
 async def search(starts_at: datetime, ends_at: datetime):
-    with SlaveSession() as session:
+    session = SlaveSession()
+    return get_events(starts_at, ends_at, session)
+
+
+def get_events(starts_at: datetime, ends_at: datetime, session: Session) -> EventList:
+    try:
         events = (
             session.query(Event)
             .filter(Event.start_date >= starts_at, Event.end_date < ends_at)
             .all()
         )
+    except Exception as err:
+        session.close()
+        raise err
 
     event_list = []
     for event in events:
