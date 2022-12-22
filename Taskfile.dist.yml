@@ -1,9 +1,14 @@
 version: "3"
+dotenv:
+  - .env.local
 tasks:
   up:
     desc: docker compose up
     cmds:
       - docker compose up --scale api=0 --scale event-reader=0
+  down:
+    cmds:
+      - docker compose down
   api-run:
     desc: start the api server
     cmds:
