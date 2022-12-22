@@ -74,7 +74,13 @@ services:
       - POSTGRESQL_PASSWORD=my_password
       - POSTGRESQL_MASTER_PORT_NUMBER=5432
       - ALLOW_EMPTY_PASSWORD=yes
-
+  postgresql-test:
+    image: docker.io/bitnami/postgresql:14
+    ports:
+      - "5444:5432"
+    restart: on-failure
+    environment:
+      - POSTGRESQL_PASSWORD=my_password
 volumes:
   postgresql_master_data:
     driver: local
