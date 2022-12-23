@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-from fever.event_reader.main import read_events
+from fever.event_reader.use_cases import read_events
 from fever.models import Event
 
 

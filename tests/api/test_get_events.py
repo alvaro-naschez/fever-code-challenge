@@ -2,7 +2,7 @@ from datetime import date, time
 
 import pytest
 
-from fever.api.v1.endpoints.events import get_events
+from fever.api.use_cases import get_events
 from fever.models import Event
 
 
