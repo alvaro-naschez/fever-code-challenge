@@ -14,8 +14,8 @@ class Event(Base):
     title: str = Column(Text, nullable=False)
     start_date: datetime = Column(DateTime, nullable=False)
     end_date: datetime = Column(DateTime)
-    min_price: datetime = Column(Integer)
-    max_price: datetime = Column(Integer)
+    min_price: int = Column(Integer)
+    max_price: int = Column(Integer)
 
     def asdict(self):
         return asdict(self)
