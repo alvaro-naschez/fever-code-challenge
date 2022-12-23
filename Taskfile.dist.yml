@@ -20,7 +20,7 @@ tasks:
   test:
     desc: run tests
     cmds:
-      - poetry run pytest
+      - poetry run pytest -vv
     dotenv:
       - ".env.test"
   format:
