@@ -1,4 +1,3 @@
-from dataclasses import asdict
 from unittest.mock import MagicMock
 
 from fever.event_reader.main import read_events
@@ -12,7 +11,7 @@ def test_read_events(session, str_to_datetime):
     read_events(xml, session, logger)
     assert session.query(Event.id).count() == 3
     event = session.query(Event).get(291)
-    assert asdict(event) == {
+    assert event.asdict() == {
         "id": 291,
         "title": "Camela en concierto",
         "start_date": str_to_datetime("2021-06-30T21:00:00"),
@@ -21,7 +20,7 @@ def test_read_events(session, str_to_datetime):
         "max_price": 3000,
     }
     event = session.query(Event).get(322)
-    assert asdict(event) == {
+    assert event.asdict() == {
         "id": 322,
         "title": "Pantomima Full",
         "start_date": str_to_datetime("2021-02-10T20:00:00"),
@@ -30,7 +29,7 @@ def test_read_events(session, str_to_datetime):
         "max_price": 5500,
     }
     event = session.query(Event).get(1591)
-    assert asdict(event) == {
+    assert event.asdict() == {
         "id": 1591,
         "title": "Los Morancos",
         "start_date": str_to_datetime("2021-07-31T20:00:00"),

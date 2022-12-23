@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from datetime import datetime
 
 from sqlalchemy import Column, DateTime, Integer, Text
@@ -16,3 +16,6 @@ class Event(Base):
     end_date: datetime = Column(DateTime)
     min_price: datetime = Column(Integer)
     max_price: datetime = Column(Integer)
+
+    def asdict(self):
+        return asdict(self)
