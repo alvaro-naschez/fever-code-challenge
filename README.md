@@ -20,6 +20,32 @@ make run
 > **Note**
 > I'm using [GNU Make](https://www.gnu.org/software/make/) here because I was asked to do so in the instructions of the challenge, but for local development I've been using [Taskfile](https://taskfile.dev/) instead, which is a similar but more modern tool. I would recommend you to have a look at its documentation if you have some time.
 
+## How to run the tests
+
+For running the tests you will need aditional requirements:
+
+- [Pyenv](https://github.com/pyenv/pyenv)
+- [Poetry](https://python-poetry.org/)
+- [Taskfile](https://taskfile.dev/)
+
+First install the project locally using poetry and pyenv:
+
+```sh
+pyenv install 3.10.9
+pyenv local 3.10.9
+poetry install
+```
+
+Then run the tests:
+
+```sh
+task up # run the needed containers first
+task test
+```
+
+> **Note**
+> This is not the only way you can run the tests here, you could for example avoid using pyenv, but this is the way I've been using so it is well tested and I'm pretty sure it works.
+
 ## Goals of the proposed solution
 
 My aim with the proposed solution was to find the right balance between a good and correct solution on one hand, and a simple one on the other. In other words, I wanted to make things simple while not doing the bare minimum.
@@ -42,5 +68,3 @@ And finally, we have the API, which could be simply optimized by implementing th
 Obviously the app is not production ready. But I honestly believe I've done a good job given the time constraints.
 
 In case you have any questions about my solution, I would like to tell you that I would be more than happy to explain to you my solution in more depth and why I made the decisions I made. So if you feel it could be useful, don't hesitate to organize a meeting in order to do so.
-
-And finally, I will explain why I don't have tests. I'm a bit ashamed that I don't have good test coverage here. But writing good tests takes time and I've currently spent some time on this challenge. I think it is enough, at least for now. If some of these days I have time and I'm in the right mood, I will write some.
