@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 
 from fever.db.base import Base
@@ -15,3 +17,13 @@ def session(monkeypatch):
     monkeypatch.setattr(session, "commit", lambda: None)
     yield session
     session.close()
+
+
+@pytest.fixture
+def str_to_datetime(autouse=True):
+    datetime_format = "%Y-%m-%dT%H:%M:%S"
+
+    def closure(dt):
+        return datetime.strptime(dt, datetime_format)
+
+    return closure
